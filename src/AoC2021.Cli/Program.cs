@@ -21,6 +21,14 @@ if (!File.Exists(path))
 
 switch (day)
 {
+    case "day1":
+        {
+            var text = File.ReadAllText(path);
+            var nums = SonarSweep.Parse(text);
+            Console.WriteLine($"Deel 1: {SonarSweep.CountIncreases(nums)}");
+            Console.WriteLine($"Deel 2: {SonarSweep.CountPlusThreeIncreases(nums)}");
+            break;
+        }
     case "day25":
         {
             var lines = File.ReadAllLines(path);
