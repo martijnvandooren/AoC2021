@@ -25,3 +25,6 @@ Day25:	- bovenste venster geeft input weer zoals in tekst bestand.
 		- zonder tekstbestand wordt er een voorbeeld ingeladen
 		- Bij initialiseer owrdt het grid opgebouwd
 		- Bij start draait hij in variabele snelheid de simulatie af van de input.
+
+Conclusie:
+Superleuke opdrachten, ik wist niet dat het bestond. Kans bestat dat ik de rest van de opdrchten ook nog wel ga bekijken

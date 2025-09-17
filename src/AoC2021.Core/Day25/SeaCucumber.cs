@@ -17,8 +17,12 @@ namespace AoC2021.Core.Day25
 
         public SeaCucumber(string[] lines)
         {
+            if (lines is null) { throw new ArgumentNullException(nameof(lines)); }
+            if (lines.Length == 0) { throw new ArgumentException("Input van lines moet minimaal 1 rij zijn", nameof(lines)); }
+
             Height = lines.Length;
             Width = lines[0].Length;
+
             _right = new HashSet<Point>();
             _down = new HashSet<Point>();
 
@@ -27,6 +31,9 @@ namespace AoC2021.Core.Day25
 
         private void SetupGrid(string[] lines) 
         {
+            if (lines is null) { throw new ArgumentNullException(nameof(lines)); }
+            if (lines.Length == 0) { throw new ArgumentException("Input must contain at least one line.", nameof(lines)); }
+
             for (int r = 0; r < Height; r++)
             {
                 for (int c = 0; c < Width; c++)
@@ -55,7 +62,7 @@ namespace AoC2021.Core.Day25
             return steps;
         }
 
-        //Voor test: terug naar originele weergave
+        //Voor test en web: terug naar originele weergave
         public string[] ToLines()
         {
             var lines = new string[Height];
