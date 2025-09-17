@@ -29,26 +29,9 @@ namespace AoC2021.Core.Day25
             SetupGrid(lines);
         }
 
-        private void SetupGrid(string[] lines) 
-        {
-            if (lines is null) { throw new ArgumentNullException(nameof(lines)); }
-            if (lines.Length == 0) { throw new ArgumentException("Input must contain at least one line.", nameof(lines)); }
-
-            for (int r = 0; r < Height; r++)
-            {
-                for (int c = 0; c < Width; c++)
-                {
-                    char ch = lines[r][c];
-                    if (ch == '>') _right.Add(new Point(r, c));
-                    else if (ch == 'v') _down.Add(new Point(r, c));
-                }
-            }
-        }
-
         public bool Step() => MoveRight() | MoveDown();
 
         //returned integer aantal iteraties
-        //
         public int RunUntilStable()
         {
             int steps = 0;
@@ -76,6 +59,9 @@ namespace AoC2021.Core.Day25
             }
             return lines;
         }
+
+        private int NeedToSwitchToStartRow(int r) => r >= Height ? 0 : r;
+        private int NeedToSwitchToStartColumn(int c) => c >= Width ? 0 : c;
 
         private bool MoveRight()
         {
@@ -115,7 +101,20 @@ namespace AoC2021.Core.Day25
             return movedDown;
         }
 
-        private int NeedToSwitchToStartRow(int r) => r >= Height ? 0 : r;
-        private int NeedToSwitchToStartColumn(int c) => c >= Width ? 0 : c;
+        private void SetupGrid(string[] lines)
+        {
+            if (lines is null) { throw new ArgumentNullException(nameof(lines)); }
+            if (lines.Length == 0) { throw new ArgumentException("Input must contain at least one line.", nameof(lines)); }
+
+            for (int r = 0; r < Height; r++)
+            {
+                for (int c = 0; c < Width; c++)
+                {
+                    char ch = lines[r][c];
+                    if (ch == '>') _right.Add(new Point(r, c));
+                    else if (ch == 'v') _down.Add(new Point(r, c));
+                }
+            }
+        }
     }
 }
