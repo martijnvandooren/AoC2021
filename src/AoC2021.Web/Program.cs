@@ -44,7 +44,7 @@ app.MapPost("/api/day25/step", (SimulationStore store, StepReq req) =>
 app.MapPost("/api/day1/run", (RunDay1Req req) =>
 {
     var nums = SonarSweep.Parse(req.Input ?? string.Empty);
-    return Results.Ok(new { part1 = SonarSweep.CountIncreases(nums), part2 = SonarSweep.CountWindowIncreases(nums) });
+    return Results.Ok(new { part1 = SonarSweep.CountIncreases(nums), part2 = SonarSweep.CountPlusThreeIncreases(nums) });
 });
 
 app.Run();
