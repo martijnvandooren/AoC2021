@@ -15,3 +15,13 @@ CLI project ingericht
 Vervolgens Day 1 solution uitgewerkt.
 Oplossing 1 was makkelijk en zo gepiept,
 Oplossing 2 had wat meer voeten in de aarde maar na ingeving, achteraf makkelijk en logisch
+
+Teruggekeken naar Day25 logica. Hierbij miste ik een visuele representatie. Dus besloten om een WebApp toe te voegen.
+(met hulp van AI) draait op localhost en geeft een visuele representatie van de simulatie van migrerende ZeeKomkommers
+
+kleine aanpassingen nodig in Day25, testen ook licht aangepast
+Volledige webapplicatie met knoppen voor dag 1 of dag 25, Input bestanden kunnen worden gelezen 
+Day25:	- bovenste venster geeft input weer zoals in tekst bestand.
+		- zonder tekstbestand wordt er een voorbeeld ingeladen
+		- Bij initialiseer owrdt het grid opgebouwd
+		- Bij start draait hij in variabele snelheid de simulatie af van de input.

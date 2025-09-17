@@ -15,6 +15,7 @@ public class Day25Tests
         var sim = Sim(">.");
         var moved = sim.Step();
         Assert.True(moved);
+        AssertGrid(sim, ".>");
     }
 
     //komkommers naar beneden
@@ -24,6 +25,7 @@ public class Day25Tests
         var sim = Sim("v", ".");       // height 2, one column
         var moved = sim.Step();
         Assert.True(moved);
+        AssertGrid(sim, ".", "v");
     }
 
     //rechts komkommer stopt wanner beneden komkommer er is
@@ -33,6 +35,7 @@ public class Day25Tests
         var sim = Sim(".>v.");
         var moved = sim.Step();
         Assert.False(moved);
+        AssertGrid(sim, ".>v.");
     }
 
     //beneden komkommer stopt wanneer rechts komkommer er is
@@ -42,6 +45,7 @@ public class Day25Tests
         var sim = Sim(">", "v");
         var moved = sim.Step();
         Assert.False(moved);
+        AssertGrid(sim, ">", "v");
     }
 
     //RechtsKomkommer verschijnt links wanneer eind van de rij is bereikt
@@ -51,6 +55,7 @@ public class Day25Tests
         var sim = Sim("..>");
         var moved = sim.Step();
         Assert.True(moved);
+        AssertGrid(sim, ">..");
     }
 
     //Benedenkomkommer verschijnt boven wanneer eind van de kolom is bereikt
@@ -60,6 +65,7 @@ public class Day25Tests
         var sim = Sim(".", "v");       // height 2, 'v' at bottom wraps to top
         var moved = sim.Step();
         Assert.True(moved);
+        AssertGrid(sim, "v", ".");
     }
 
     //Benedenkomkommer kan plaats innemen van rechtskomkommer (want die beurt is al geweest)
@@ -70,6 +76,7 @@ public class Day25Tests
         var sim = Sim(">.", "v.");
         var moved = sim.Step();
         Assert.True(moved);
+        AssertGrid(sim, "v>", "..");
     }
 
     [Fact]

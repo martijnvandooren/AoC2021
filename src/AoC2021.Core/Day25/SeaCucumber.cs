@@ -55,6 +55,21 @@ namespace AoC2021.Core.Day25
             return steps;
         }
 
+        //Voor test: terug naar originele weergave
+        public string[] ToLines()
+        {
+            var lines = new string[Height];
+            for (int r = 0; r < Height; r++)
+            {
+                var row = new char[Width];
+                for (int c = 0; c < Width; c++) row[c] = '.';
+                foreach (var p in _right) if (p.Row == r) row[p.Col] = '>';
+                foreach (var p in _down) if (p.Row == r) row[p.Col] = row[p.Col] == '.' ? 'v' : row[p.Col];
+                lines[r] = new string(row);
+            }
+            return lines;
+        }
+
         private bool MoveRight()
         {
             bool movedRight = false;
