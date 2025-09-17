@@ -1,0 +1,107 @@
+﻿@page
+@model Day1Model
+@{
+    ViewData["Title"] = "Day 1 – Sonar Sweep";
+}
+<h1>Day 1 – Sonar Sweep</h1>
+
+<textarea id="input" rows="10" style="width:100%;max-width:600px;white-space:pre; font-family:ui-monospace,Consolas,monospace;"></textarea>
+<div id="dropZone" style="margin-top:8px;padding:12px;border:2px dashed #bbb;border-radius:6px;">
+    Drop a .txt file here
+</div>
+<div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+    <input type="file" id="fileInput" accept=".txt" />
+    <button id="btnLoadFile" class="btn">Load selected file</button>
+    <button id="btnLoadRepo" class="btn btn-outline-secondary">Load Day1.txt from repo</button>
+    <button id="btnSample" class="btn btn-outline-secondary">Load sample</button>
+    <button id="btnRun" class="btn btn-primary">Run</button>
+</div>
+<p style="margin-top:8px;"><strong>Part 1:</strong> <span id="p1">–</span> | <strong>Part 2:</strong> <span id="p2">–</span></p>
+
+
+@section Scripts {
+    <script>
+        document.getElementById('btnLoadFile').addEventListener('click', () => {
+          const f = document.getElementById('fileInput').files[0];
+          if (!f) { alert('Choose a .txt first'); return; }
+          const reader = new FileReader();
+          reader.onload = e => {
+            const text = (e.target.result || '').toString()
+              .replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            document.getElementById('input').value = text.trimEnd();
+          };
+          reader.readAsText(f);
+        });
+
+        document.getElementById('btnLoadRepo').addEventListener('click', async () => {
+          const res = await fetch('/inputs/Day1.txt');
+          const text = (await res.text()).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+          document.getElementById('input').value = text.trimEnd();
+        });
+
+        document.getElementById('btnSample').addEventListener('click', () => {
+          document.getElementById('input').value =
+        `199
+        200
+        208
+        210
+        200
+        207
+        240
+        269
+        260
+        263`;
+        });
+        
+        const dz = document.getElementById('dropZone');
+        
+        ['dragenter','dragover','dragleave','drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); }));
+        
+        dz.addEventListener('drop', e => {
+          const f = e.dataTransfer.files?.[0];
+          if (!f) return;
+          const reader = new FileReader();
+          reader.onload = ev => {
+            const text = (ev.target.result || '').toString().replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+            document.getElementById('input').value = text.trimEnd();
+          };
+          reader.readAsText(f);
+        });
+
+        document.getElementById('btnRun').addEventListener('click', async () => {
+          const input = document.getElementById('input').value;
+          const res = await fetch('/api/day1/run', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ input })
+          });
+          const data = await res.json();
+          document.getElementById('p1').textContent = data.part1;
+          document.getElementById('p2').textContent = data.part2;
+        });
+    </script>
+}
+
+<style>
+    .btn {
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            filter: brightness(0.95);
+        }
+
+    .btn-primary {
+        background: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+    }
+
+    .btn-outline-secondary {
+        background: white;
+        color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>
